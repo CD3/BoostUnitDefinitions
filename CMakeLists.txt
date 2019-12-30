@@ -14,11 +14,6 @@ include(function-git_version)
 GIT_VERSION(BoostUnitDefinitions)
 message( STATUS "BoostUnitDefinitions version: ${BoostUnitDefinitions_VERSION}")
 project(BoostUnitDefinitions VERSION ${BoostUnitDefinitions_VERSION})
-# need to run configure_file twice
-configure_file( "${CMAKE_CURRENT_SOURCE_DIR}/src/${PROJECT_NAME}/version.h.in"
-                "${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/version.h")
-configure_file( "${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/version.h"
-                "${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/version.h")
 
 # common dependencies
 # find_package( Boost REQUIRED )
