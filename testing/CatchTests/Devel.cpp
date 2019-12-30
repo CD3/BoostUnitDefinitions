@@ -26,4 +26,11 @@ TEST_CASE("General", "[devel]")
 
     CHECK( quantity<t::cm>(L).value() == 1000 );
   }
+
+  SECTION("Radiant Exposure")
+  {
+    quantity<t::J_cm_n2> H(2 * i::mJ_cm_n2);
+
+    CHECK( H.value() == 0.002);
+  }
 }
