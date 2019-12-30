@@ -25,12 +25,12 @@ configure_file( "${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/version.h"
 # find_package( Eigen3 3.3 REQUIRED )
 
 string( REGEX REPLACE "^lib" "" LIB_NAME ${PROJECT_NAME} )
-add_library( ${LIB_NAME} )
+add_library( ${LIB_NAME} INTERFACE )
 add_library( ${PROJECT_NAME}::${LIB_NAME} ALIAS ${LIB_NAME} )
 target_sources(
-  ${LIB_NAME}
-  PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/RemoveMe.cpp>
+${LIB_NAME}
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BoostUnitDefinitions/Units.hpp>
 )
 target_include_directories( ${LIB_NAME} INTERFACE
   $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/src>
