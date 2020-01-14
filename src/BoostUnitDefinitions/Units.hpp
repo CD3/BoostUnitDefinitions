@@ -18,7 +18,6 @@ namespace boost
 {
 namespace units
 {
-using namespace boost::units;
 
 /** @brief namespace for unit types */
 namespace t

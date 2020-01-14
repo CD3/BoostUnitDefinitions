@@ -16,8 +16,7 @@ message( STATUS "BoostUnitDefinitions version: ${BoostUnitDefinitions_VERSION}")
 project(BoostUnitDefinitions VERSION ${BoostUnitDefinitions_VERSION})
 
 # common dependencies
-# find_package( Boost REQUIRED )
-# find_package( Eigen3 3.3 REQUIRED )
+find_package( Boost REQUIRED )
 
 string( REGEX REPLACE "^lib" "" LIB_NAME ${PROJECT_NAME} )
 add_library( ${LIB_NAME} INTERFACE )
@@ -34,8 +33,7 @@ target_include_directories( ${LIB_NAME} INTERFACE
 )
 target_link_libraries(${LIB_NAME}
                         INTERFACE
-                          #Boost::boost
-                          #Eigen3::Eigen
+                          Boost::boost
                      )
 
 if( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR} AND BUILD_UNIT_TESTS)
