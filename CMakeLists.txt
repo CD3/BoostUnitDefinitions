@@ -15,9 +15,6 @@ GIT_VERSION(BoostUnitDefinitions)
 message( STATUS "BoostUnitDefinitions version: ${BoostUnitDefinitions_VERSION}")
 project(BoostUnitDefinitions VERSION ${BoostUnitDefinitions_VERSION})
 
-# common dependencies
-find_package( Boost REQUIRED )
-
 string( REGEX REPLACE "^lib" "" LIB_NAME ${PROJECT_NAME} )
 add_library( ${LIB_NAME} INTERFACE )
 add_library( ${PROJECT_NAME}::${LIB_NAME} ALIAS ${LIB_NAME} )
@@ -31,10 +28,6 @@ target_include_directories( ${LIB_NAME} INTERFACE
   $<BUILD_INTERFACE:${${PROJECT_NAME}_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(${LIB_NAME}
-                        INTERFACE
-                          Boost::boost
-                     )
 
 if( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR} AND BUILD_UNIT_TESTS)
 enable_testing()
@@ -54,11 +47,11 @@ install( TARGETS ${LIB_NAME} EXPORT ${PROJECT_NAME}Targets
   INCLUDES DESTINATION include/${PROJECT_NAME}
 )
 install(DIRECTORY src/
-  DESTINATION include/${PROJECT_NAME}
+  DESTINATION include/
   FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h"
 )
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/
-  DESTINATION include/${PROJECT_NAME}
+  DESTINATION include/
   FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h"
 )
 install(EXPORT ${PROJECT_NAME}Targets
@@ -68,7 +61,6 @@ install(EXPORT ${PROJECT_NAME}Targets
 )
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
 "include(CMakeFindDependencyMacro)
-find_dependency(Boost)
 include(\${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}Targets.cmake)
 "
   )

@@ -14,7 +14,8 @@ trap cleanup EXIT
 
 mkdir $bindir
 cd $bindir
-cmake .. -DCMAKE_INSTALL_PREFIX=$bindir/install
+conan install ..
+veval cmake .. -DCMAKE_INSTALL_PREFIX=$bindir/install
 cmake --build .
 cmake --build . --target test
 
@@ -48,13 +49,15 @@ cat << EOF > CMakeLists.txt
 cmake_minimum_required(VERSION 3.1)
 add_executable( main main.cpp )
 find_package( BoostUnitDefinitions REQUIRED )
-target_link_libraries(main BoostUnitDefinitions::BoostUnitDefinitions)
+find_package( Boost REQUIRED )
+target_link_libraries(main BoostUnitDefinitions::BoostUnitDefinitions Boost::boost)
 set_target_properties(main PROPERTIES CXX_STANDARD 11)
 EOF
 
 mkdir build1
 cd build1
-cmake .. -DBoostUnitDefinitions_DIR=${bindir}/install/cmake/
+conan install $root
+veval cmake .. -DBoostUnitDefinitions_DIR=${bindir}/install/cmake/
 cmake --build .
 ./main
 
