@@ -265,7 +265,7 @@ ADD_UNIT(mm_n2, inverse_millimeter_squared)
 
 // Velocity
 ADD_UNIT(meter_per_second, divide_typeof_helper<meter, second>::type)
-ADD_UNIT(m_s_n2, divide_typeof_helper<m, s>::type)
+ADD_UNIT(m_s_n1, divide_typeof_helper<m, s>::type)
 
 // Radiant Exposure
 ADD_UNIT(joule_per_centimeter_squared,
