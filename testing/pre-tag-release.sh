@@ -14,8 +14,8 @@ trap cleanup EXIT
 
 mkdir $bindir
 cd $bindir
-conan install ..
-veval cmake .. -DCMAKE_INSTALL_PREFIX=$bindir/install
+conan install .. -s build_type=Release
+cmake .. -DCMAKE_INSTALL_PREFIX=$bindir/install -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build .
 cmake --build . --target test
 
@@ -56,8 +56,8 @@ EOF
 
 mkdir build1
 cd build1
-conan install $root
-veval cmake .. -DBoostUnitDefinitions_DIR=${bindir}/install/cmake/
+conan install $root -s build_type=Release
+cmake .. -DBoostUnitDefinitions_DIR=${bindir}/install/cmake/ -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build .
 ./main
 
