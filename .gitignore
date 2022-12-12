@@ -2,3 +2,5 @@ build/
 build-*/
 .*.swp
 .git-*
+.cache
+compile_commands.json

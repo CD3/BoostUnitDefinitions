@@ -4,9 +4,7 @@ set( binDir ${CMAKE_BINARY_DIR}/testBin )
 set( buildDir ${CMAKE_BINARY_DIR} )
 
 
-add_library(Catch INTERFACE)
-target_include_directories(Catch INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include/catch)
-
+find_package(Catch2 REQUIRED)
 find_package( Boost REQUIRED )
 
 # Find all sources.
@@ -21,10 +19,10 @@ endforeach()
 set( testName ${PROJECT_NAME}_CatchTests )
 add_executable(${testName} ${unitTest_SOURCES})
 target_compile_definitions( ${testName} PRIVATE -DTESTING )
-target_link_libraries(${testName} Catch BoostUnitDefinitions Boost::boost)
+target_link_libraries(${testName} Catch2::Catch2WithMain BoostUnitDefinitions Boost::boost)
 target_include_directories( ${testName} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 set_target_properties(${testName} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${binDir})
-set_target_properties(${testName} PROPERTIES CXX_STANDARD 11)
+set_target_properties(${testName} PROPERTIES CXX_STANDARD 14)
 if(MSVC)
   target_compile_options(${testName} PRIVATE /W4 /WX)
 else()

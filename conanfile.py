@@ -1,11 +1,7 @@
-from conans import ConanFile, CMake, tools
-import os
+from conans import ConanFile
 
 class ConanBuild(ConanFile):
-    generators = "cmake_paths", "virtualenv"
-    requires = 'boost/1.69.0@conan/stable'
+    settings = "os","arch","compiler","build_type"
+    generators = "CMakeDeps", "CMakeToolchain"
+    requires = 'boost/1.72.0', 'catch2/3.0.1'
 
-    def build(self):
-      cmake = CMake(self)
-      cmake.configure()
-      cmake.build()
