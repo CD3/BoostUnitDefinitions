@@ -48,12 +48,61 @@ find a need for.
 
 ## Building and Installing
 
-CMake is used to configure, build, and install:
+### Conan
+
+You can install the library with conan from the command line
 
 ```
+conan install cd3-boost-unit-definitions/0.2.2
+```
+or by adding the `cd3-boost-unit-definitions/0.2.2` dependency to your `conanfile.txt`/`conanfile.py`.
+
+### From source
+
+Use CMake to build and install from source.
+
+```
+$ git clone https://github.com/CD3/BoostUnitDefinitions.git
+$ cd BoostUnitDefinitions
 $ mkdir build
 $ cd build
 $ cmake ..
 $ cmake --build .
 $ cmake --build . --target install
+```
+
+## Using
+
+If you install the library with CMake, or use Conan with the CMakeDeps/CMakeToolchain generators, you can find and link against it in your CMakeLists.txt file
+
+```
+...cmake
+find_package(BoostUnitDefinitions REQUIRED) # defines the BoostUnitDefinitions::BoostUnitDefinitions target
+...
+target_link_libraries(MyTarget PUBLIC BoostUnitDefinitions::BoostUnitDefinitions)
+...
+```
+Then, in your code, include the (only) header file
+```cpp
+#include <BoostUnitDefinitions/Units.hpp>
+```
+The header defines a large set of units, both the _type_ and _static instance_, so you can easily work with common quantities.
+```
+...
+using namespace boost::units;
+
+
+quantity<t::cm> L1 = 10*i::cm;
+quantity<t::in> L2 = 24*i::in;
+quantity<t::km> L3 = 2.5*i::km;
+quantity<t::ft> L4 = 10*i::ft;
+quantity<t::in> L2 = 24*i::in;
+
+
+quantity<t::s> T1 = 10*i::s;
+quantity<t::ms> T2 = 100*i::ms;
+
+// derived units follow a naming convention that gives the exponent (either (p)ostive or (n)egative) after each unit.
+quantity<t::m_s_n1> v = 10*i::m_s_n1;    // m s^-1
+quantity<t::mJ_cm_n2> H = 1*i::mJ_cm_n2  // mJ cm^-2 (radiant exposure)
 ```
